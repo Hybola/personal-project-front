@@ -23,6 +23,7 @@ export default function LoginPage() {
       setPosToken(res.data.posToken);
       toast.success("You are logged in");
       const resFetchMe = await authApi.fetchMe();
+      console.log(resFetchMe)
     } catch (err) {
       console.log(err);
       // toast.error("Invalid email address or password.");
