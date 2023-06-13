@@ -1,24 +1,32 @@
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { useMenu } from "../../contexts/menuContext";
+import { useState } from "react";
 
-export default function NewMenuForm() {
+export default function NewMenuForm({ onSucess, menu }) {
+  const { createMenu, category } = useMenu();
+  const [file, setFile] = useState(null);
+  console.log("menu", menu);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = async (formData) => {
-    try {
-      // console.log(formData);
-      //   const token = await authApi.register(formData);
-      // setPosToken(token.data.posToken);
+  } = useForm({
+    defaultValues: menu,
+  });
+  const onSubmit = (formData) => {
+    const formData2 = new FormData();
+    if (file) formData2.append("image", file); // ชื่อ image ตามใน database
+    if (formData.name) formData2.append("name", formData.name);
+    if (formData.price) formData2.append("price", formData.price);
+    if (formData.categoryId == "Rice") formData2.append("categoryId", 1);
+    if (formData.categoryId == "Drink") formData2.append("categoryId", 2);
+    if (formData.categoryId == "Dessert") formData2.append("categoryId", 3);
 
-      toast.success("New menu is created successful");
-      onSucess();
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response.data.message);
+    for (var pair of formData2.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
     }
+    createMenu(formData2);
+    onSucess();
   };
 
   return (
@@ -26,13 +34,13 @@ export default function NewMenuForm() {
       {/* =========  Name ========== */}
       <div>
         <label className="label">
-          <span className="text-base label-text">username</span>
+          <span className="text-base label-text">Name</span>
         </label>
         <input
           type="text"
-          placeholder="enter username..."
+          placeholder="enter menu name..."
           className="w-full input input-bordered input-primary"
-          {...register("username")}
+          {...register("name")}
         />
         {errors.username && (
           <p className="text-red-500">{errors.username.message}</p>
@@ -41,13 +49,14 @@ export default function NewMenuForm() {
       {/* ========= price ========== */}
       <div>
         <label className="label">
-          <span className="text-base label-text">email</span>
+          <span className="text-base label-text">Price</span>
         </label>
+
         <input
-          type="text"
-          placeholder="enter email...."
+          type="number"
+          placeholder="enter price...."
           className="w-full input input-bordered input-primary"
-          {...register("email")}
+          {...register("price")}
         />
         {errors.restaurantName && (
           <p className="text-red-500">{errors.email.message}</p>
@@ -56,39 +65,40 @@ export default function NewMenuForm() {
       {/* =========   image  ========== */}
       <div>
         <label className="label">
-          <span className="text-base label-text">Password</span>
+          <span className="text-base label-text">Upload one image</span>
         </label>
         <input
-          type="password"
-          placeholder="Enter password..."
-          className="w-full input input-bordered input-primary"
-          {...register("password")}
+          type="file"
+          className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+          onChange={(e) => {
+            if (e.target.files[0]) setFile(e.target.files[0]);
+          }}
         />
-        {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
-        )}
       </div>
 
-      {/* ========= Category========== */}
+      {/* ========= CategoryId========== */}
       <div>
         <label className="label">
-          <span className="text-base label-text">Confirm password</span>
+          <span className="text-base label-text">Selct category</span>
         </label>
-        <input
-          type="password"
-          placeholder="Confirm Password..."
-          className="w-full input input-bordered input-primary"
-          {...register("confirmPassword")}
-        />
-        {errors.confirmPassword && (
-          <p className="text-red-500">Confirm password not match..</p>
-        )}
+        <select
+          className="select select-primary w-full max-w-xs"
+          {...register("categoryId")}>
+          <option disabled>Please select one category?</option>
+          {/* {category.map((el) => (
+            <option>el.name</option>
+          ))} */}
+          <option>Rice</option>
+          <option>Drink</option>
+          <option>Dessert</option>
+        </select>
       </div>
 
       {/* ========= Subimit button ========== */}
-      <div className="grid place-items-end">
-        <button className="btn btn-primary">Cancel</button>
-        <button className="btn btn-primary">Submit</button>
+      <div className=" ">
+        <button className="btn btn-primary w-full" type="submit">
+          Submit
+        </button>
       </div>
     </form>
   );

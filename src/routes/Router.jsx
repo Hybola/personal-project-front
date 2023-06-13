@@ -4,7 +4,7 @@ import LoginPage from "../pages/LoginPage";
 import MenuPage from "../pages/MenuPage";
 import OrderPage from "../pages/OrderPage";
 import ProfilePage from "../pages/ProfilePage";
-import SetUpPage from "../pages/SetUpPage";
+import EditPage from "../pages/EditPage";
 import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthenticated";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 const router = createBrowserRouter([
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "setup",
-        element: <SetUpPage />,
+        element: <EditPage />,
       },
       {
         path: "/profile",
