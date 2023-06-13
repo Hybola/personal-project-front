@@ -4,10 +4,11 @@ import EditMenuButton from "../features/Menu/EditMenuButton";
 import NewMenuForm from "../features/Menu/NewMenuForm";
 import { useState } from "react";
 import Card from "../layout/card";
+import DeleteMenuButton from "../features/Menu/DeleteMenuButton";
 
 export default function EditPage() {
   const [open, setOpen] = useState(false);
-  const { allMenu } = useMenu();
+  const { allMenu, deleteMenu } = useMenu();
 
   return (
     <div>
@@ -31,6 +32,7 @@ export default function EditPage() {
         {allMenu.map((el) => (
           <Card key={el.id} name={el.name} price={el.price} src={el.image}>
             <EditMenuButton menu={el} />
+            <DeleteMenuButton menuId={el.id} />
           </Card>
         ))}
       </div>

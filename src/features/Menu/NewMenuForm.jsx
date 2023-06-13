@@ -3,9 +3,11 @@ import { useMenu } from "../../contexts/menuContext";
 import { useState } from "react";
 
 export default function NewMenuForm({ onSucess, menu }) {
-  const { createMenu, category } = useMenu();
+  const { createMenu, editMenu } = useMenu();
   const [file, setFile] = useState(null);
+
   console.log("menu", menu);
+
   const {
     register,
     handleSubmit,
@@ -22,10 +24,15 @@ export default function NewMenuForm({ onSucess, menu }) {
     if (formData.categoryId == "Drink") formData2.append("categoryId", 2);
     if (formData.categoryId == "Dessert") formData2.append("categoryId", 3);
 
-    for (var pair of formData2.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+    // for (var pair of formData2.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
+    if (menu) {
+      editMenu(menu.id, formData2);
+    } else {
+      createMenu(formData2);
     }
-    createMenu(formData2);
+
     onSucess();
   };
 

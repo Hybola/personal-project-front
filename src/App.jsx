@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <Router />
-      <ToastContainer position="bottom-center" theme="dark" autoClose={4000} />
+      <ToastContainer position="top-center" theme="dark" autoClose={4000} />
     </div>
   );
 }

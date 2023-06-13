@@ -36,8 +36,8 @@ export default function MenuContextProvider(props) {
   const createMenu = async (input) => {
     try {
       const res = await menuApi.createMenu(input);
-  
-      setAllMenu([...allMenu,res.data.newMenu]);
+
+      setAllMenu([...allMenu, res.data.newMenu]);
       toast.success("New menu is created successfully");
     } catch (err) {
       console.log(err.response.data.message);
@@ -47,7 +47,16 @@ export default function MenuContextProvider(props) {
   const editMenu = async (menuId, input) => {
     try {
       const res = await menuApi.editMenu();
-      setAllMenu([...allMenu, res.new]);
+      const updatedMenuObj = res.data.newMenu;
+      const foundedIndex = allMenu.findIndex((menu) => menu.id === menuId);
+      if (foundedIndex !== -1) {
+        const menuList = [...allMenu];
+        menuList[foundedIndex] = {
+          ...menuList[foundedIndex],
+          ...updatedMenuObj,
+        };
+        setAllMenu(menuList);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -55,7 +64,9 @@ export default function MenuContextProvider(props) {
   const deleteMenu = async (menuId) => {
     try {
       const res = await menuApi.deleteMenu(menuId);
-      //   setAllMenu([...allMenu, res.new]);
+      const menuList = allMenu.filter((menu) => menu.id !== menuId);
+      setAllMenu(menuList);
+      toast.success(res.data.message);
     } catch (err) {
       console.log(err);
     }

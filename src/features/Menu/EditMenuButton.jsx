@@ -10,7 +10,7 @@ export default function EditMenuButton({ menu }) {
   return (
     <div>
       <button
-        className="btn"
+        className="btn btn-info p-1 py-1"
         onClick={() => {
           setOpen(true);
         }}>
