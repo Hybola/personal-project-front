@@ -6,11 +6,14 @@ import Joi from "joi";
 import RegisterButton from "../features/auth/components/RegisterButton";
 import * as authApi from "../api/auth-api";
 import { setPosToken } from "../utils/localStorage";
+import { useAuth } from "../contexts/authContext";
+
 const LoginSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().required(),
 });
 export default function LoginPage() {
+  const { setUserData, user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -23,13 +26,14 @@ export default function LoginPage() {
       setPosToken(res.data.posToken);
       toast.success("You are logged in");
       const resFetchMe = await authApi.fetchMe();
-      console.log(resFetchMe)
+      // console.log("loginPage/onSub mit",resFetchMe.data.user);
+      setUserData(resFetchMe.data.user);
     } catch (err) {
       console.log(err);
-      // toast.error("Invalid email address or password.");
       toast.error(err.response.data.message);
     }
   };
+
   return (
     <div className="relative flex flex-col  h-[calc(100vh-80px)] overflow-hidden ">
       <div className="w-full p-6 m-auto mt-24 bg-white rounded-md shadow-md lg:max-w-lg">
