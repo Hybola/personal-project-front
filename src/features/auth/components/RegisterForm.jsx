@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 import * as authApi from "../../../api/auth-api";
 import { setPosToken } from "../../../utils/localStorage";
+import { useNavigate } from "react-router-dom";
 
 const RegisterSchema = Joi.object({
   username: Joi.string().trim().required(),
@@ -15,6 +16,7 @@ const RegisterSchema = Joi.object({
 }).options({ allowUnknown: true });
 
 export default function RegisterForm({ onSucess }) {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,6 +30,7 @@ export default function RegisterForm({ onSucess }) {
       // console.log(formData);
       const token = await authApi.register(formData);
       setPosToken(token.data.posToken);
+      navigate("/");
       toast.success("Register is successful");
       onSucess();
     } catch (err) {

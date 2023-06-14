@@ -10,6 +10,8 @@ export default function EditPage() {
   const [open, setOpen] = useState(false);
   const { allMenu, deleteMenu } = useMenu();
 
+  console.log("------", allMenu);
+
   return (
     <div>
       <div className="flex p-10">
@@ -31,6 +33,7 @@ export default function EditPage() {
       <div className="grid grid-cols-4 gap-3">
         {allMenu.map((el) => (
           <Card key={el.id} name={el.name} price={el.price} src={el.image}>
+            <p>{`ID:${el.id}`}</p>
             <EditMenuButton menu={el} />
             <DeleteMenuButton menuId={el.id} />
           </Card>

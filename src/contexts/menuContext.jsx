@@ -38,7 +38,7 @@ export default function MenuContextProvider(props) {
       const res = await menuApi.createMenu(input);
 
       setAllMenu([...allMenu, res.data.newMenu]);
-      toast.success("New menu is created successfully");
+      toast.success(`New menu is created successfully as ID:${res.data.newMenu.id}`);
     } catch (err) {
       console.log(err.response.data.message);
       toast.error(err.response.data.message);
@@ -46,7 +46,7 @@ export default function MenuContextProvider(props) {
   };
   const editMenu = async (menuId, input) => {
     try {
-      const res = await menuApi.editMenu();
+      const res = await menuApi.editMenu(menuId,input);
       const updatedMenuObj = res.data.newMenu;
       const foundedIndex = allMenu.findIndex((menu) => menu.id === menuId);
       if (foundedIndex !== -1) {
@@ -57,8 +57,10 @@ export default function MenuContextProvider(props) {
         };
         setAllMenu(menuList);
       }
+      toast.success(`The menu ID ${menuId} is edited successfully`);
     } catch (err) {
       console.log(err);
+      toast.error(err.response.data.message);
     }
   };
   const deleteMenu = async (menuId) => {
@@ -69,6 +71,7 @@ export default function MenuContextProvider(props) {
       toast.success(res.data.message);
     } catch (err) {
       console.log(err);
+      toast.error(err.response.data.message);
     }
   };
   const setMenuData = (value) => {
@@ -79,6 +82,7 @@ export default function MenuContextProvider(props) {
       value={{
         allMenu,
         category,
+        fetchMenus,
         setMenuData,
         createMenu,
         editMenu,

@@ -20,19 +20,17 @@ export default function NewMenuForm({ onSucess, menu }) {
     if (file) formData2.append("image", file); // ชื่อ image ตามใน database
     if (formData.name) formData2.append("name", formData.name);
     if (formData.price) formData2.append("price", formData.price);
-    if (formData.categoryId == "Rice") formData2.append("categoryId", 1);
-    if (formData.categoryId == "Drink") formData2.append("categoryId", 2);
-    if (formData.categoryId == "Dessert") formData2.append("categoryId", 3);
-
-    // for (var pair of formData2.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
     if (menu) {
       editMenu(menu.id, formData2);
     } else {
+      if (formData.categoryId == "Rice") formData2.append("categoryId", 1);
+      if (formData.categoryId == "Drink") formData2.append("categoryId", 2);
+      if (formData.categoryId == "Dessert") formData2.append("categoryId", 3);
       createMenu(formData2);
     }
-
+    // for (var pair of formData2.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
     onSucess();
   };
 

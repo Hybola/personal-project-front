@@ -55,7 +55,7 @@ export default function SideBar() {
                 </Link>
 
                 <Link
-                  to="setup"
+                  to="/edit"
                   className="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
                   <DinnerTableIcon className="w-10 h-10 fill-current inline-block mx-5" />
                   <span className="">Edit Menus</span>
