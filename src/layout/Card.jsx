@@ -1,7 +1,8 @@
 import { DEFAULT_MENU_IMAGE } from "../config/env";
-export default function Card({ src, name, price, children }) {
+export default function Card({ src, name, price, children}) {
   return (
-    <div className="card card-compact w-48 bg-base-100 shadow-xl">
+    <div className="card card-compact w-48 bg-base-100 shadow-xl"
+    >
       <figure>
         <img
           src={src || DEFAULT_MENU_IMAGE}

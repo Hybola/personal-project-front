@@ -16,6 +16,8 @@ export default function MenuContextProvider(props) {
       userId: 2,
     },
   ]);
+  const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
   const [category, setCategory] = useState([]);
 
   const fetchMenus = async () => {
@@ -38,16 +40,19 @@ export default function MenuContextProvider(props) {
       const res = await menuApi.createMenu(input);
 
       setAllMenu([...allMenu, res.data.newMenu]);
-      toast.success(`New menu is created successfully as ID:${res.data.newMenu.id}`);
+      toast.success(
+        `New menu is created successfully as ID:${res.data.newMenu.id}`
+      );
     } catch (err) {
       console.log(err.response.data.message);
       toast.error(err.response.data.message);
     }
   };
+
   const editMenu = async (menuId, input) => {
     try {
-      const res = await menuApi.editMenu(menuId,input);
-      const updatedMenuObj = res.data.newMenu;
+      const res = await menuApi.editMenu(menuId, input);
+      const updatedMenuObj = res.data.updatedMenu;
       const foundedIndex = allMenu.findIndex((menu) => menu.id === menuId);
       if (foundedIndex !== -1) {
         const menuList = [...allMenu];
@@ -74,19 +79,38 @@ export default function MenuContextProvider(props) {
       toast.error(err.response.data.message);
     }
   };
+
   const setMenuData = (value) => {
     setAllMenu(value);
+  };
+  const addToCart = (menu) => {
+    setCart([...cart, menu]);
+    setTotal((total) => total + +menu.price);
+  };
+  const removeFromCart = (menu) => {
+    const updatedCart = cart.filter((el) => el.id !== menu.id);
+    setCart(updatedCart);
+    setTotal((total) => total - +menu.price);
+  };
+  const removeAllCart = () => {
+    setCart([]);
+    setTotal(0);
   };
   return (
     <MenuContext.Provider
       value={{
         allMenu,
         category,
+        cart,
+        total,
+        removeFromCart,
         fetchMenus,
         setMenuData,
+        addToCart,
         createMenu,
         editMenu,
         deleteMenu,
+        removeAllCart,
       }}>
       {props.children}
     </MenuContext.Provider>
