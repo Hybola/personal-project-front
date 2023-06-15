@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/authContext";
 // import { HomeModernIcon } from "../icons";
 
 export default function SideBar() {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function SideBar() {
               D<span className="text-teal-600">.</span>
             </h1>
             <h1 className="hidden md:block  text-teal-600 font-bold text-sm md:text-xl text-center">
-              Thai foods
+              {user.restaurantName}
             </h1>
             <div id="profile" className="space-y-3">
               <img
@@ -28,10 +28,10 @@ export default function SideBar() {
               />
               <div>
                 <h2 className="font-medium text-xs md:text-sm text-center text-teal-500">
-                  Mr.Keeratipong
+                  {user.name}
                 </h2>
                 <p className="text-xs text-gray-500 text-center">
-                  Administrator
+                  Administrator ID:{user.id}
                 </p>
               </div>
             </div>
@@ -65,7 +65,7 @@ export default function SideBar() {
                   to="/profile"
                   className="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out">
                   <RestaurantIcon className="w-10 h-10 fill-current inline-block mx-5" />
-                  <span className="">Restaurant</span>
+                  <span className="">Profile</span>
                 </Link>
               </div>
 

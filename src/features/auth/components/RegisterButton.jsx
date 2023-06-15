@@ -8,7 +8,8 @@ export default function RegisterButton({ btnName }) {
   return (
     <div>
       <button
-        className="bg-green-500 text-white rounded-md px-4 leading-[3rem] font-bold hover:bg-green-600 tracking-wide"
+        // className="bg-green-500 text-white rounded-md px-4 leading-[3rem] font-bold hover:bg-green-600 tracking-wide"
+        className="btn btn-active btn-link bg-[#617A55]"
         onClick={() => {
           setOpen(true);
         }}>

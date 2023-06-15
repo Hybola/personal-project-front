@@ -10,8 +10,6 @@ export default function EditPage() {
   const [open, setOpen] = useState(false);
   const { allMenu, deleteMenu } = useMenu();
 
-  console.log("------", allMenu);
-
   return (
     <div>
       <div className="flex p-10">

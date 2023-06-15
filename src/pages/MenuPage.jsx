@@ -5,8 +5,9 @@ import { useEffect } from "react";
 import CreateOrder from "../features/Order/CreateOrder";
 
 export default function MenuPage() {
-  const { allMenu, addToCart } = useMenu();
+  const { fetchMenus,allMenu, addToCart } = useMenu();
   useEffect(()=>{
+    fetchMenus();
   },[])
   return (
     <>

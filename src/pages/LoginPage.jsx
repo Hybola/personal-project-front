@@ -75,11 +75,11 @@ export default function LoginPage() {
             Forget Password?
           </a>
           <div>
-            <button className="btn btn-primary">Login</button>
+            <button className="btn btn-primary w-full">Login</button>
           </div>
         </form>
-        <div className="flex justify-center pt-1 bp-2">
-          <RegisterButton btnName="Creat new restaurant" />
+        <div className="flex justify-center pt-1 bp-2 mt-8">
+          <RegisterButton btnName="Create new restaurant" />
         </div>
       </div>
     </div>

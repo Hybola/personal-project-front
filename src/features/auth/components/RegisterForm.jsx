@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import * as authApi from "../../../api/auth-api";
 import { setPosToken } from "../../../utils/localStorage";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/authContext";
 
 const RegisterSchema = Joi.object({
   username: Joi.string().trim().required(),
@@ -16,7 +17,10 @@ const RegisterSchema = Joi.object({
 }).options({ allowUnknown: true });
 
 export default function RegisterForm({ onSucess }) {
+  const { user,fetchMe} = useAuth();
+
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -30,9 +34,10 @@ export default function RegisterForm({ onSucess }) {
       // console.log(formData);
       const token = await authApi.register(formData);
       setPosToken(token.data.posToken);
-      navigate("/");
       toast.success("Register is successful");
       onSucess();
+      fetchMe();
+      navigate("/");
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
@@ -66,9 +71,7 @@ export default function RegisterForm({ onSucess }) {
           className="w-full input input-bordered input-primary"
           {...register("email")}
         />
-        {errors.restaurantName && (
-          <p className="text-red-500">{errors.email.message}</p>
-        )}
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
       </div>
       {/* =========   Password   ========== */}
       <div>
@@ -117,8 +120,8 @@ export default function RegisterForm({ onSucess }) {
         )}
       </div>
       {/* ========= Subimit button ========== */}
-      <div className="grid place-items-end">
-        <button className="btn btn-primary">Submit</button>
+      <div>
+        <button className="btn btn-primary w-full">Submit</button>
       </div>
     </form>
   );
