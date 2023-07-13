@@ -8,10 +8,10 @@ import MenuContextProvider from "./contexts/menuContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthContextProvider>
       <MenuContextProvider>
+    <AuthContextProvider>
         <App />
-      </MenuContextProvider>
     </AuthContextProvider>
+      </MenuContextProvider>
   </React.StrictMode>
 );

@@ -11,9 +11,9 @@ export default function MenuPage() {
   }, []);
   return (
     <>
-      <div className="w-full flex justify-evenly gap-4">
-        <div>
-          <div className="flex p-3"></div>
+      <div className="w-full flex justify-between gap-4">
+        <div className="ml-16 mt-7">
+          <div className="flex p-3 "></div>
           <div className="grid grid-cols-4 gap-3">
             {allMenu.map((el) => (
               <Card

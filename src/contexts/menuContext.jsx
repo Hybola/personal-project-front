@@ -5,21 +5,11 @@ import { toast } from "react-toastify";
 const MenuContext = createContext();
 
 export default function MenuContextProvider(props) {
-  const [allMenu, setAllMenu] = useState([
-    {
-      categoryId: 2,
-      createdAt: "2023-06-13T09:01:01.125Z",
-      id: 25,
-      name: "coffee",
-      price: "80",
-      updatedAt: "2023-06-13T09:01:01.125Z",
-      userId: 2,
-    },
-  ]);
+  const [allMenu, setAllMenu] = useState([]);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [category, setCategory] = useState([]);
-  const [loading, setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchMenus = async () => {
     try {
@@ -38,16 +28,16 @@ export default function MenuContextProvider(props) {
 
   const createMenu = async (input) => {
     try {
-      setLoading(true)
-      console.log("loading >> ", loading)
-      
+      setLoading(true);
+      console.log("loading >> ", loading);
+
       const res = await menuApi.createMenu(input);
       setAllMenu([...allMenu, res.data.newMenu]);
-      setLoading(false)
+      setLoading(false);
       toast.success(
         `New menu is created successfully as ID:${res.data.newMenu.id}`
-        );
-        console.log("loading >> ", loading)
+      );
+      console.log("loading >> ", loading);
     } catch (err) {
       console.log(err.response.data.message);
       toast.error(err.response.data.message);
@@ -118,6 +108,7 @@ export default function MenuContextProvider(props) {
         editMenu,
         deleteMenu,
         removeAllCart,
+        setAllMenu,
       }}>
       {props.children}
     </MenuContext.Provider>
