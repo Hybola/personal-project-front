@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useMenu } from "../../contexts/menuContext";
 import { useState } from "react";
+import Loading from "../../components/Loading";
 
 export default function NewMenuForm({ onSucess, menu }) {
-  const { createMenu, editMenu } = useMenu();
+  const { createMenu, editMenu, loading,setLoading } = useMenu();
   const [file, setFile] = useState(null);
 
-  console.log("menu", menu);
+  // console.log("menu", menu);
 
   const {
     register,
@@ -15,27 +16,38 @@ export default function NewMenuForm({ onSucess, menu }) {
   } = useForm({
     defaultValues: menu,
   });
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
+
     const formData2 = new FormData();
     if (file) formData2.append("image", file); // ชื่อ image ตามใน database
     if (formData.name) formData2.append("name", formData.name);
     if (formData.price) formData2.append("price", formData.price);
-    if (menu) {
-      editMenu(menu.id, formData2);
-    } else {
-      if (formData.categoryId == "Rice") formData2.append("categoryId", 1);
-      if (formData.categoryId == "Drink") formData2.append("categoryId", 2);
-      if (formData.categoryId == "Dessert") formData2.append("categoryId", 3);
-      createMenu(formData2);
+    try {
+      if (menu) {
+        setLoading(true);
+        await editMenu(menu.id, formData2);
+      } else {
+        if (formData.categoryId == "Rice") formData2.append("categoryId", 1);
+        if (formData.categoryId == "Drink") formData2.append("categoryId", 2);
+        if (formData.categoryId == "Dessert") formData2.append("categoryId", 3);
+        setLoading(true);
+        await createMenu(formData2);
+      }
+      // for (var pair of formData2.entries()) {
+        //   console.log(pair[0] + ", " + pair[1]);
+        // }  
+        setLoading(false);
+        
+      onSucess();
+    } catch (err) {
+      console.log(err.response.data.message);
     }
-    // for (var pair of formData2.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
-    onSucess();
   };
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      {loading && <Loading />}
+
       {/* =========  Name ========== */}
       <div>
         <label className="label">

@@ -2,6 +2,8 @@ export function AddIcon(props) {
   return (
     <div type="button">
       <svg
+        height="1rem"
+        width="1rem"
         viewBox="0 0 1024 1024"
         className="icon cursor-pointer"
         type="button"
@@ -13,11 +15,11 @@ export function AddIcon(props) {
         />
         <path
           d="M682.7 554.7H341.3c-23.6 0-42.7-19.1-42.7-42.7s19.1-42.7 42.7-42.7h341.3c23.6 0 42.7 19.1 42.7 42.7s-19.1 42.7-42.6 42.7z"
-          fill="#5F6379"
+          fill="#4fff38"
         />
         <path
           d="M512 725.3c-23.6 0-42.7-19.1-42.7-42.7V341.3c0-23.6 19.1-42.7 42.7-42.7s42.7 19.1 42.7 42.7v341.3c0 23.6-19.1 42.7-42.7 42.7z"
-          fill="#5F6379"
+          fill="#4fff38"
         />
       </svg>
     </div>
@@ -241,6 +243,59 @@ export function MenuIcon(props) {
         d="M332.323 274c0 43.123-34.957 78.08-78.08 78.08V195.918c43.121 0 78.08 34.959 78.08 78.082z"
         fill="#cccccf"
       />
+    </svg>
+  );
+}
+export function LoaderIcon({ className = null }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      height="4rem"
+      width="4rem"
+      fill="#000"
+      className={className}>
+      <g>
+        <path d="M10,1V3a7,7,0,1,1-7,7H1a9,9,0,1,0,9-9Z" />
+      </g>
+    </svg>
+  );
+}
+export function EditIcon() {
+  return (
+    <svg
+      height="1rem"
+      width="1rem"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <g
+        fill="none"
+        stroke="#05264E"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}>
+        <path d="M20 16v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h4" />
+        <path d="M12.5 15.8L22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8z" />
+      </g>
+    </svg>
+  );
+}
+export function BinIcon(props) {
+  return (
+    <svg
+      height="1rem"
+      width="1rem"
+      viewBox="0 0 28 28"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
+      <g>
+        <path d="M11.849 22.692a.479.479 0 01-.526-.428l-.856-8.19a.48.48 0 01.425-.53l.476-.05a.48.48 0 01.526.428l.856 8.19a.48.48 0 01-.425.53l-.476.05zM16.153 22.642a.48.48 0 01-.425-.53l.856-8.19a.48.48 0 01.526-.428l.475.05a.48.48 0 01.426.53l-.856 8.19a.479.479 0 01-.526.428l-.476-.05z" />
+        <path
+          clipRule="evenodd"
+          d="M11.923 1c-.574 0-1.092.344-1.319.875L9.543 4.37H4.913A1.92 1.92 0 003 6.296v2.408c0 .981.73 1.791 1.672 1.91L7.63 26.227c.09.45.482.774.938.774h11.784a.958.958 0 00.946-.82l2.15-15.584A1.923 1.923 0 0025 8.704V6.296a1.92 1.92 0 00-1.913-1.926h-4.63l-1.063-2.495A1.435 1.435 0 0016.075 1h-4.152zm4.452 3.37l-.367-.86a.956.956 0 00-.879-.584h-2.26a.957.957 0 00-.879.584l-.366.86h4.75zm5.094 6.682a.4.4 0 00-.397-.455l-13.958.032a.4.4 0 00-.392.473L9.198 24.26a1 1 0 00.983.815h8.475a1 1 0 00.99-.863l1.823-13.16zm.661-2.348a.96.96 0 00.957-.963v-.482a.96.96 0 00-.957-.963H5.87a.96.96 0 00-.957.963v.482a.96.96 0 00.957.963h16.26z"
+          fillRule="evenodd"
+        />
+      </g>
     </svg>
   );
 }

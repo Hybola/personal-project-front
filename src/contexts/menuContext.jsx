@@ -19,6 +19,7 @@ export default function MenuContextProvider(props) {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [category, setCategory] = useState([]);
+  const [loading, setLoading]=useState(false);
 
   const fetchMenus = async () => {
     try {
@@ -37,12 +38,16 @@ export default function MenuContextProvider(props) {
 
   const createMenu = async (input) => {
     try {
+      setLoading(true)
+      console.log("loading >> ", loading)
+      
       const res = await menuApi.createMenu(input);
-
       setAllMenu([...allMenu, res.data.newMenu]);
+      setLoading(false)
       toast.success(
         `New menu is created successfully as ID:${res.data.newMenu.id}`
-      );
+        );
+        console.log("loading >> ", loading)
     } catch (err) {
       console.log(err.response.data.message);
       toast.error(err.response.data.message);
@@ -103,6 +108,8 @@ export default function MenuContextProvider(props) {
         category,
         cart,
         total,
+        loading,
+        setLoading,
         removeFromCart,
         fetchMenus,
         setMenuData,
